@@ -1,0 +1,41 @@
+
+
+nav {
+  background: var(--nav-bar-color);
+  height: var(--nav-bar-height);
+  display: flex;
+  justify-content: space-between;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: var(--nav-bar-height);
+}
+
+nav ul li {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+nav .logo {
+  font-size: 24px;
+}
+
+nav ul li:hover {
+  cursor: pointer;
+}
+nav ul li:focus {
+  outline: none;
+}
+
+#logo-deloitte {
+  height: calc(var(--nav-bar-height) - 35px);
+  padding: 20px;
+}

@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global styles */
+:root {
+  --nav-bar-height: 65px;
+  --nav-bar-color: #0e333b;
+  --font-family: sans-serif;
+  --font-color: white;
+}
+
+html, body {
+  margin: 0px;
+  background: url('/assets/image/bg.jpeg') no-repeat center;
+  background-size: cover;
+  min-height: 100vh;
+  font-family: var(--font-family);
+  color: var(--font-color);
+}
+
+/*
+  Utilities
+*/
+.bg-white {
+  background: white!important;
+}
+.bg-black {
+  background: black!important;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
