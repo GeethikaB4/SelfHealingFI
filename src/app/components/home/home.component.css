@@ -1,18 +1,10 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+#imgContainer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 40px;
 }
-.container .col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-  padding: 25px;
-}
-.container .row {
+
+#imageGrid {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -20,12 +12,16 @@
   margin-top:10px;
   margin-bottom: 10px;
 }
-.container .row * {
+#imageGrid > div {
+  padding: 20px;
+}
+
+#imageGrid * {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.container .row p {
+#imageGrid p {
   color: black;
   margin: 0px;
   font-weight: bold;
@@ -45,31 +41,33 @@
   height: 75px;
 }
 
-#row-techStack {
-  padding: 15px;
-}
-#row-techStack * {
+#techStack * {
   margin-left: 0px;
   margin-right: 0px;
 }
-#row-techStack select {
+#techStack {
+  padding: 15px;
+}
+#techStack select {
   width: 250px;
   background: transparent;
   border: 1px solid #0fbdbd;
-  /* border: 1px solid var(--nav-bar-color); */
+  padding: 8px;
+  padding-left: 10px;
   color: white;
-  padding: 10px;
   height: 40px;
 }
-#row-techStack button {
+#techStack option {
+  color: black;
+}
+#techStack button {
   height: 40px;
   background: #0c9c9c;
-  /* background: var(--nav-bar-color); */
   border: 0px;
   color: white;
   padding-left: 15px;
   padding-right: 15px;
 }
-#row-techStack select:focus {
+#techStack select:focus {
   outline: none;
 }

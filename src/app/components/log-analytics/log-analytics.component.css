@@ -1,0 +1,19 @@
+#main {
+  height: calc(100vh - var(--nav-bar-height));
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.border-black {
+  border: solid 1.5px black;
+}
+.col-outer{
+  padding: 10px
+}
+
+.col-inner .btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

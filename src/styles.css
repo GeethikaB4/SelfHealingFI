@@ -6,6 +6,7 @@
   --nav-bar-color: #0e333b;
   --font-family: sans-serif;
   --font-color: white;
+  --color-grey: #b8b7b7;
 }
 
 html, body {
@@ -25,6 +26,9 @@ html, body {
 }
 .bg-black {
   background: black!important;
+}
+.bg-grey {
+  background: var(--color-grey);
 }
 .float-right {
   float: right;

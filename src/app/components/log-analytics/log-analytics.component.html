@@ -1,1 +1,30 @@
-<p>log-analytics works!</p>
+<div class="container-fluid" id="main">
+  <div class="row h-100">
+    <div class="col-12">
+        <div class="row bg-white h-100 no-gutters">
+            <div class="col-3 col-outer" style="padding-right: 5px;">
+              <div class="col-inner bg-grey h-100 border border-dark d-flex align-items-center justify-content-between flex-column">
+                <div class="d-flex flex-column">
+                  <button class="btn btn-danger">Errors</button>
+                  <button class="btn btn-warning">Warnings</button>
+                </div>
+                <button class="btn btn-primary" (click)="downloadLog()">Download Logs</button>
+              </div>
+            </div>
+            <div class="col-9 col-outer" style="padding-left: 5px;">
+              <div class="col-inner bg-grey h-100">
+                <div class="row h-100 no-gutters">
+                  <div class="col-6 border border-right-0 border-dark">
+
+                  </div>
+                  <div class="col-6 border border-dark">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </div>
+  </div>
+</div>
