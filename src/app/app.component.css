@@ -1,0 +1,14 @@
+#background {
+  background: url('/assets/image/bg.jpeg') no-repeat center;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
+
+#navbar-padding{
+  padding-top: var(--nav-bar-height);
+}

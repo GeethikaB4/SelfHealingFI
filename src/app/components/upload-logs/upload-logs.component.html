@@ -1,5 +1,5 @@
-<div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
-  <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+<div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="loadFiles($event)">
+  <input hidden type="file" #fileInput (change)="loadFiles($event.target.files)">
 </div>
   <div  class="files-list" *ngFor="let file of files;let i=index">
     <p>{{ file }}</p>
@@ -7,9 +7,8 @@
       <img src="../../assets/Recycle_Bin_Full.png">
     </button>
 </div>
-<div class="proceedButton">
-
-	<button type="button" routerLink="/logAnalyticsAndResolution">Proceed >></button>
-
+<div class="d-flex justify-content-center">
+  <button class="btn btn-primary" *ngIf="!proceed" (click)="uploadFiles()" [disabled]="!readyForUpload">Upload files</button>
+	<button class="btn btn-info" *ngIf="proceed" type="button" routerLink="/logAnalyticsAndResolution">Proceed >></button>
 </div>
 

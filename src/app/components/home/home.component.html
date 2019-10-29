@@ -19,12 +19,12 @@
 <div class="container">
   <div class="row justify-content-center">
     <div id="techStack" class="bg-black d-flex">
-      <select name="">
-        <option value="">--- Choose a Tech Stack ---</option>
+      <select (change)="changeTechStack($event.target.value)">
+        <option value='' selected hidden>-- Select a tech stack --</option>
         <option value="hadoop">Hadoop</option>
         <option value="informatica">Informatica</option>
        </select>
-     <<button type="button" routerLink="/uploadLogs">Proceed >></button>
+     <button type="button" (click)="saveTechStack()" *ngIf="techStack !== ''">Proceed >></button>
     </div>
 
   </div>

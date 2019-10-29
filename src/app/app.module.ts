@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -8,7 +9,9 @@ import { UploadFileComponent } from './components/upload-logs/upload-logs.compon
 import { DragDropDirective } from './components/drag-drop.directive';
 import { LogAnalyticsComponent } from './components/log-analytics/log-analytics.component';
 import { HomeComponent } from './components/home/home.component';
-import { FileServiceService } from './services/file-service.service';
+import { FileService } from './services/file-service.service';
+import { SharedService } from './services/shared.service';
+import { HttpService } from './services/http.service';
 
 @NgModule({
   declarations: [
@@ -21,11 +24,14 @@ import { FileServiceService } from './services/file-service.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  schemas:[],
+  schemas: [],
   providers: [
-    FileServiceService
+    FileService,
+    SharedService,
+    HttpService
   ],
   bootstrap: [AppComponent]
 })

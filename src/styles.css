@@ -11,8 +11,6 @@
 
 html, body {
   margin: 0px;
-  background: url('/assets/image/bg.jpeg') no-repeat center;
-  background-size: cover;
   min-height: 100vh;
   font-family: var(--font-family);
   color: var(--font-color);

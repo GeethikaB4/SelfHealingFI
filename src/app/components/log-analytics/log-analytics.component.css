@@ -1,5 +1,6 @@
 #main {
   height: calc(100vh - var(--nav-bar-height));
+  max-height: calc(100vh - var(--nav-bar-height));
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 30px;
@@ -17,3 +18,4 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+

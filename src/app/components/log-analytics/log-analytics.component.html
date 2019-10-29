@@ -1,24 +1,46 @@
 <div class="container-fluid" id="main">
   <div class="row h-100">
-    <div class="col-12">
+    <div class="col-12 mh-100">
         <div class="row bg-white h-100 no-gutters">
             <div class="col-3 col-outer" style="padding-right: 5px;">
               <div class="col-inner bg-grey h-100 border border-dark d-flex align-items-center justify-content-between flex-column">
                 <div class="d-flex flex-column">
-                  <button class="btn btn-danger">Errors</button>
-                  <button class="btn btn-warning">Warnings</button>
+                  <button class="btn btn-danger" (click)="showErrors = true; showWarnings = false">Errors</button>
+                  <button class="btn btn-warning" (click)="showErrors = false; showWarnings = true">Warnings</button>
                 </div>
                 <button class="btn btn-primary" (click)="downloadLog()">Download Logs</button>
               </div>
             </div>
-            <div class="col-9 col-outer" style="padding-left: 5px;">
+            <div class="col-9 h-100 col-outer" style="padding-left: 5px;">
               <div class="col-inner bg-grey h-100">
                 <div class="row h-100 no-gutters">
-                  <div class="col-6 border border-right-0 border-dark">
-
-                  </div>
-                  <div class="col-6 border border-dark">
-
+                  <div class="col-12 mh-100 border border-right-0 border-dark">
+                    <div class="row no-gutters" style="height: 40px;" *ngIf="showErrors">
+                      <div class="col-6">
+                        <b class="pl-2 pt-2">Error</b>
+                      </div>
+                      <div class="col-6 d-flex justify-content-between">
+                        <b class="pl-2 pt-2">Remediation</b>
+                        <button class="btn btn-primary btn-sm mt-1 mr-1">submit</button>
+                      </div>
+                    </div>
+                    <div class="row no-gutters" style="height:calc(100% - 40px);"  *ngIf="showErrors">
+                      <div class="col-12 h-100" style="overflow-y: scroll;">
+                          <table class="table">
+                            <tbody>
+                              <tr *ngFor="let error of errors">
+                                <td style="width: 50%">{{error.Error_Summary}}</td>
+                                <td style="width: 50%">
+                                  <p *ngFor="let remedy of error.Remediation">
+                                    <input type="checkbox" />
+                                    {{remedy}}
+                                  </p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
