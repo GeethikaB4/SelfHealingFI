@@ -26,9 +26,14 @@ export class LogAnalyticsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const file = this.shared.outputFile;
-    if (file) {
-      await this.fetchAnalytics(file);
+    /**
+     * If the analysis is success fetch the csv
+     */
+    if (this.shared.analysisSuccess) {
+      const file = this.shared.outputFile;
+      if (file) {
+        await this.fetchAnalytics(file);
+      }
     }
   }
 
@@ -45,6 +50,7 @@ export class LogAnalyticsComponent implements OnInit {
 
   /**
    * @param errors List of errors to be processed
+   * Transforms the output from ML code
    */
   processAnalytics(errors: Array<Errors>) {
     errors.forEach(error => {

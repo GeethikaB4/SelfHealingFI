@@ -5,10 +5,10 @@
             <div class="col-3 col-outer" style="padding-right: 5px;">
               <div class="col-inner bg-grey h-100 border border-dark d-flex align-items-center justify-content-between flex-column">
                 <div class="d-flex flex-column">
-                  <button class="btn btn-danger" (click)="showErrors = true; showWarnings = false">Errors</button>
+                  <button *ngIf="shared.analysisSuccess" class="btn btn-danger" (click)="showErrors = true; showWarnings = false">Errors</button>
                   <!-- <button class="btn btn-warning" (click)="showErrors = false; showWarnings = true">Warnings</button> -->
                 </div>
-                <button class="btn btn-primary" (click)="downloadLog()">Download Logs</button>
+                <button class="btn btn-primary" [disabled]="!shared.analysisSuccess" (click)="downloadLog()">Download Logs</button>
               </div>
             </div>
             <div class="col-9 h-100 col-outer" style="padding-left: 5px;">
@@ -24,9 +24,10 @@
                         <button class="btn btn-primary btn-sm mt-1 mr-1">submit</button>
                       </div>
                     </div>
-                    <div class="row no-gutters" style="height:calc(100% - 40px);"  *ngIf="showErrors">
-                      <div class="col-12 h-100" style="overflow-y: scroll;">
-                          <table class="table">
+                    <div class="row no-gutters" style="height:calc(100% - 40px);">
+                      <div class="col-12 h-100" [ngClass]="{'d-flex align-items-center justify-content-center': !shared.analysisSuccess}" [ngStyle]="{'overflow-y': shared.analysisSuccess?'scroll':''}">
+                          <h4 *ngIf="!shared.analysisSuccess">Error occured while analyzing</h4>
+                          <table class="table"  *ngIf="showErrors">
                             <tbody>
                               <tr *ngFor="let error of errors">
                                 <td style="width: 50%">{{error.Error_Summary}}</td>

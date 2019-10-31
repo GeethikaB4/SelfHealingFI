@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SharedService {
+  baseURI = 'http://USBLRNIXAVIER1.us.deloitte.com:3000';
+  MLServer = 'http://USBLRNIXAVIER1.us.deloitte.com:3001';
   techStack: string;
   filesUploaded: Array<string>;
   filePaths: Array<{[key: string]: string}>;
-  baseURI = 'http://10.29.155.7:3000';
-  MLServer = 'http://localhost:3999';
-  analysisSuccess = false;
+  analysisSuccess: boolean;
   outputFile: string;
 }
