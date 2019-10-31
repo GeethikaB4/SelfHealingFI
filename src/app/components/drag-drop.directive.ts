@@ -4,6 +4,7 @@ import { Directive, Output, Input, EventEmitter, HostBinding, HostListener } fro
   selector: '[appDragDrop]'
 })
 export class DragDropDirective {
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onFileDropped = new EventEmitter<any>();
 
   @HostBinding('style.background-color') private background = '#f5fcff';
@@ -29,7 +30,7 @@ export class DragDropDirective {
     evt.stopPropagation();
     this.background = '#f5fcff';
     this.opacity = '1';
-    let files = evt.dataTransfer.files;
+    const files = evt.dataTransfer.files;
     if (files.length > 0) {
       this.onFileDropped.emit(files);
     }

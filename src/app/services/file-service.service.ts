@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
-  baseURI = 'http://usblrnixavier1:3000';
 
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, private shared: SharedService) {
 
   }
 
@@ -16,12 +17,14 @@ export class FileService {
     saveAs(url, fileName);
   }
 
-  uploadLogs(techStack: string, files: Array<File>) {
+  uploadLogs(techStack: string, files: Array<File>, baseURI: string) {
     const formData = new FormData();
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < files.length; i++) {
       formData.append('logs', files[i], files[i][name]);
     }
-    return this.http.post(`${this.baseURI}/upload/${techStack}`, formData).toPromise().then((data)=>{
+    return this.http.post(`${baseURI}/upload/${techStack}`, formData).toPromise().then((data: any) => {
+      this.shared.filePaths = data.fileLocation;
       console.log(data);
       return true;
     }).catch((err: HttpErrorResponse) => {
@@ -31,8 +34,8 @@ export class FileService {
   }
 
 
-  downloadCSV(techStack: string, targetFileName: string, saveFileName: string) {
-    return this.http.get(`${this.baseURI}/file/${techStack}/${targetFileName}`, {
+  downloadCSV(techStack: string, targetFileName: string, saveFileName: string, baseURI: string) {
+    return this.http.get(`${baseURI}/file/${techStack}/${targetFileName}`, {
       responseType: 'arraybuffer'
     }).toPromise().then(
       (data) => {

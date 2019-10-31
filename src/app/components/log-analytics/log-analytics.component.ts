@@ -4,6 +4,8 @@ import { HttpService } from 'src/app/services/http.service';
 import { Errors } from 'src/app/interfaces/errors';
 import { SharedService } from 'src/app/services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-log-analytics',
@@ -15,29 +17,35 @@ export class LogAnalyticsComponent implements OnInit {
   errors: Errors[];
   showErrors = false;
   showWarnings = false;
+  config = null;
+  error = null;
 
-  constructor(private fileService: FileService, private http: HttpService, private shared: SharedService) {
-    // this.shared.filesUploaded = ['sample.csv'];
-    // this.shared.techStack = 'hadoop';
+  constructor(private fileService: FileService, private http: HttpService, private shared: SharedService,
+              private httpClient: HttpClient, private configService: ConfigService) {
     this.errors = [];
   }
 
-  ngOnInit() {
-    const files = this.shared.filesUploaded;
-    console.log(files, this.shared.techStack);
-    files.forEach(async (file) => {
+  async ngOnInit() {
+    const file = this.shared.outputFile;
+    if (file) {
       await this.fetchAnalytics(file);
-    });
+    }
   }
 
+  /**
+   * @param fileName OutputCSV filename from ML code
+   */
   async fetchAnalytics(fileName: string) {
-    await this.http.getAnalyticsandResolution(this.shared.techStack, fileName).then((data) => {
+    await this.http.getAnalyticsandResolution(this.shared.techStack, fileName, this.shared.baseURI).then((data) => {
       this.processAnalytics(data as Errors[]);
     }).catch((err: HttpErrorResponse) => {
       console.log(err);
     });
   }
 
+  /**
+   * @param errors List of errors to be processed
+   */
   processAnalytics(errors: Array<Errors>) {
     errors.forEach(error => {
       error.Remediation = [error.Remediation as string];
@@ -53,11 +61,17 @@ export class LogAnalyticsComponent implements OnInit {
       }
     });
   }
-  downloadLog() {
-    const files = this.shared.filesUploaded;
-    files.forEach(async (file) => {
-      const response = await this.fileService.downloadCSV(this.shared.techStack, file, file);
-    });
-  }
 
+  /**
+   * Downlaod log button
+   */
+  async downloadLog() {
+    const outputFile  = this.shared.outputFile;
+    await this.fileService.downloadCSV(this.shared.techStack, outputFile, 'output.csv', this.shared.baseURI);
+  }
 }
+
+
+
+
+

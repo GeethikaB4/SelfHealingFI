@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class HttpService {
 
-  baseURI = 'http://usblrnixavier1:3000';
+  constructor(private http: HttpClient, private shared: SharedService) { }
 
-  constructor(private http: HttpClient) { }
-
-  getAnalyticsandResolution(techStack: string, fileName: string) {
-    return this.http.get(`${this.baseURI}/json/${techStack}/${fileName}`).toPromise();
+  getAnalyticsandResolution(techStack: string, fileName: string, baseURI: string) {
+    return this.http.get(`${baseURI}/json/${techStack}/${fileName}`).toPromise();
   }
 
+  runML(fileName: Array<{[key: string]: string}>) {
+    return this.http.post(`${this.shared.MLServer}`, fileName).toPromise();
+  }
 }
