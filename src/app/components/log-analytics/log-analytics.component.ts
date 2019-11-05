@@ -19,10 +19,21 @@ export class LogAnalyticsComponent implements OnInit {
   showWarnings = false;
   config = null;
   error = null;
+  isCheckBoxChecked: boolean;
+  isChecked: boolean;
+  errorCnt : string; 
+  warningCnt : string; 
+  techstachSelected : string; 
+  uniqueErrorCnt : string; 
+  uniqueWarningCnt : string; 
+  timeExec : string; 
+  logFile : string; 
+  outputCSVFile : string; 
 
   constructor(private fileService: FileService, private http: HttpService, private shared: SharedService,
               private httpClient: HttpClient, private configService: ConfigService) {
     this.errors = [];
+    this.isCheckBoxChecked = false;
   }
 
   async ngOnInit() {
@@ -31,6 +42,14 @@ export class LogAnalyticsComponent implements OnInit {
      */
     if (this.shared.analysisSuccess) {
       const file = this.shared.outputFile;
+      this.errorCnt=this.shared.errorCount; 
+      this.uniqueErrorCnt =  this.shared.uniqueErrorCount; 
+      this.techstachSelected = this.shared.techStack; 
+      this.warningCnt = this.shared.warningCount;
+      this.uniqueWarningCnt = this.shared.uniqueWarningCount; 
+      this.outputCSVFile = this.shared.inputFileName.replace(".out",".csv");
+      this.logFile = this.shared.inputFileName;
+      this.timeExec = this.shared.timeOfExec;
       if (file) {
         await this.fetchAnalytics(file);
       }
@@ -75,6 +94,25 @@ export class LogAnalyticsComponent implements OnInit {
     const outputFile  = this.shared.outputFile;
     await this.fileService.downloadCSV(this.shared.techStack, outputFile, 'output.csv', this.shared.baseURI);
   }
+
+ chkval(event)
+{
+  this.isCheckBoxChecked = false;
+  if ( event.target.checked )
+  {
+    this.isCheckBoxChecked = true;
+  }
+}
+
+  status(){
+     if(this.isCheckBoxChecked == true)
+     {
+        alert("Successfully Deployed!!");
+     } 
+     else{
+       alert("Select alteast one checkbox!!");
+     } 
+  }  
 }
 
 

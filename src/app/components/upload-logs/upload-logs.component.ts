@@ -33,6 +33,7 @@ export class UploadFileComponent {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
       this.files.push(element.name);
+      this.shared.inputFileName = element.name;
       this.filesToUpload.push(element);
     }
     if (event.length > 0) {
@@ -56,6 +57,13 @@ export class UploadFileComponent {
     console.log(this.shared.filePaths);
     this.http.runML(this.shared.filePaths).then((data: MLResponse) => {
       this.shared.analysisSuccess = data.status;
+      this.shared.timeOfExec = data.time_exec;
+      this.shared.logFileName = data.log_file_name;
+      this.shared.output_csv_name = data.output_csv_name;
+      this.shared.errorCount = data.error_count;
+      this.shared.warningCount = data.warning_count;
+      this.shared.uniqueErrorCount = data.unique_error_count;
+      this.shared.uniqueWarningCount = data.unique_warning_count;
       if (data.status) {
         this.shared.outputFile = data.output.split('\\').pop();
       }

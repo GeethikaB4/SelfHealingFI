@@ -8,6 +8,17 @@
                   <button *ngIf="shared.analysisSuccess" class="btn btn-danger" (click)="showErrors = true; showWarnings = false">Errors</button>
                   <!-- <button class="btn btn-warning" (click)="showErrors = false; showWarnings = true">Warnings</button> -->
                 </div>
+                <div style="padding-left: 10px;"  *ngIf="shared.analysisSuccess" name="ExtraInfo" >
+                  <h4 style="text-align: center;">Summary</h4>
+                1.Input File: {{logFile}}<br/>                                                
+                  2.Execution Time: {{timeExec}}<br/>
+                  3.Process Name: {{techstachSelected}}<br/>
+                  4.Error Count: {{errorCnt}}<br/>
+                  5.Warrning count: {{warningCnt}}<br/>
+                  6.Unique Error Count: {{uniqueErrorCnt}}<br/>
+                  7.Unique Warrning count: {{uniqueWarningCnt}}<br/>  
+                  8.Output File: {{outputCSVFile}}<br/> 
+              </div>
                 <button class="btn btn-primary" [disabled]="!shared.analysisSuccess" (click)="downloadLog()">Download Logs</button>
               </div>
             </div>
@@ -21,7 +32,7 @@
                       </div>
                       <div class="col-6 d-flex justify-content-between">
                         <b class="pl-2 pt-2">Remediation</b>
-                        <button class="btn btn-primary btn-sm mt-1 mr-1">submit</button>
+                        <button class="btn btn-primary btn-sm mt-1 mr-1" (click)="status()">submit</button>
                       </div>
                     </div>
                     <div class="row no-gutters" style="height:calc(100% - 40px);">
@@ -33,7 +44,7 @@
                                 <td style="width: 50%">{{error.Error_Summary}}</td>
                                 <td style="width: 50%">
                                   <p *ngFor="let remedy of error.Remediation">
-                                    <input type="checkbox" />
+                                    <input type="checkbox" (change)="chkval($event)" (ngModelChange)="onChange(officeLIST)"/>
                                     {{remedy}}
                                   </p>
                                 </td>
