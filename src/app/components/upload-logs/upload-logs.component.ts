@@ -5,8 +5,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { HttpService } from 'src/app/services/http.service';
 import { MLResponse } from 'src/app/interfaces/ml-response';
 import { Router } from '@angular/router';
-
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-upload-logs',
   templateUrl: './upload-logs.component.html',
@@ -66,8 +65,23 @@ export class UploadFileComponent {
       this.shared.uniqueWarningCount = data.unique_warning_count;
       if (data.status) {
         this.shared.outputFile = data.output.split('\\').pop();
+        this.router.navigate(['/logAnalyticsAndResolution']);
+      } else {
+        Swal.fire({
+          title: 'Error occured',
+          text: 'The file you have uploaded is cannot be analysed. Do you want to upload another file?',
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+          if (result.value) {
+            this.router.navigate(['/uploadLogs']);
+          } else {
+            this.router.navigate(['/']);
+          }
+        });
       }
-      this.router.navigate(['/logAnalyticsAndResolution']);
     });
   }
 

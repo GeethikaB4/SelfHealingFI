@@ -5,18 +5,18 @@ import { Injectable } from '@angular/core';
 })
 export class SharedService {
   baseURI = 'http://localhost:3000';
-  MLServer = 'http://USHYDGBURLA8.us.deloitte.com:3001';
+  MLServer = 'http://localhost:3001';
   techStack: string;
   filesUploaded: Array<string>;
   filePaths: Array<{[key: string]: string}>;
   analysisSuccess: boolean;
   outputFile: string;
-  timeOfExec : string; 
-  logFileName : string;
-  output_csv_name : string;
-  errorCount : string;
-  warningCount : string;
-  uniqueErrorCount : string;
-  uniqueWarningCount : string;
-  inputFileName : string;
+  timeOfExec: string;
+  logFileName: string;
+  output_csv_name: string;
+  errorCount: string;
+  warningCount: string;
+  uniqueErrorCount: string;
+  uniqueWarningCount: string;
+  inputFileName: string;
 }

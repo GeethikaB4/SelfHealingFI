@@ -10,14 +10,14 @@
                 </div>
                 <div style="padding-left: 10px;"  *ngIf="shared.analysisSuccess" name="ExtraInfo" >
                   <h4 style="text-align: center;">Summary</h4>
-                1.Input File: {{logFile}}<br/>                                                
+                1.Input File: {{logFile}}<br/>
                   2.Execution Time: {{timeExec}}<br/>
                   3.Process Name: {{techstachSelected}}<br/>
                   4.Error Count: {{errorCnt}}<br/>
                   5.Warrning count: {{warningCnt}}<br/>
                   6.Unique Error Count: {{uniqueErrorCnt}}<br/>
-                  7.Unique Warrning count: {{uniqueWarningCnt}}<br/>  
-                  8.Output File: {{outputCSVFile}}<br/> 
+                  7.Unique Warrning count: {{uniqueWarningCnt}}<br/>
+                  8.Output File: {{outputCSVFile}}<br/>
               </div>
                 <button class="btn btn-primary" [disabled]="!shared.analysisSuccess" (click)="downloadLog()">Download Logs</button>
               </div>
