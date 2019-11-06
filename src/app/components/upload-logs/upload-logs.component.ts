@@ -77,6 +77,8 @@ export class UploadFileComponent {
         }).then((result) => {
           if (result.value) {
             this.router.navigate(['/uploadLogs']);
+            this.proceed = false;
+            this.files = [];
           } else {
             this.router.navigate(['/']);
           }
