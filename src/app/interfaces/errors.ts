@@ -5,4 +5,5 @@ export interface Errors {
   Severity: string;
   Detected_ts: string;
   Remediation: string | Array<string>;
+  Line_Numbers: string;
 }

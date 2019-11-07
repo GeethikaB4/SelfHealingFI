@@ -21,14 +21,14 @@ export class LogAnalyticsComponent implements OnInit {
   error = null;
   isCheckBoxChecked: boolean;
   isChecked: boolean;
-  errorCnt : string; 
-  warningCnt : string; 
-  techstachSelected : string; 
-  uniqueErrorCnt : string; 
-  uniqueWarningCnt : string; 
-  timeExec : string; 
-  logFile : string; 
-  outputCSVFile : string; 
+  errorCnt: string;
+  warningCnt: string;
+  techstachSelected: string;
+  uniqueErrorCnt: string;
+  uniqueWarningCnt: string;
+  timeExec: string;
+  logFile: string;
+  outputCSVFile: string;
 
   constructor(private fileService: FileService, private http: HttpService, private shared: SharedService,
               private httpClient: HttpClient, private configService: ConfigService) {
@@ -42,13 +42,18 @@ export class LogAnalyticsComponent implements OnInit {
      */
     if (this.shared.analysisSuccess) {
       const file = this.shared.outputFile;
-      this.errorCnt=this.shared.errorCount; 
-      this.uniqueErrorCnt =  this.shared.uniqueErrorCount; 
-      this.techstachSelected = this.shared.techStack; 
+      this.errorCnt = this.shared.errorCount;
+      this.uniqueErrorCnt =  this.shared.uniqueErrorCount;
+      this.techstachSelected = this.shared.techStack;
       this.warningCnt = this.shared.warningCount;
-      this.uniqueWarningCnt = this.shared.uniqueWarningCount; 
+      this.uniqueWarningCnt = this.shared.uniqueWarningCount;
       this.outputCSVFile = this.shared.inputFileName.replace(".out",".csv");
       this.logFile = this.shared.inputFileName;
+      const exec = this.shared.timeOfExec;
+
+
+      // this.timeExec = exec.substring(exec.lastIndexOf(',') + 1, exec.length);
+      // this.timeExec =  (parseFloat(this.timeExec) / 1000).toString();
       this.timeExec = this.shared.timeOfExec;
       if (file) {
         await this.fetchAnalytics(file);
@@ -72,19 +77,21 @@ export class LogAnalyticsComponent implements OnInit {
    * Transforms the output from ML code
    */
   processAnalytics(errors: Array<Errors>) {
-    errors.forEach(error => {
-      error.Remediation = [error.Remediation as string];
-      const found = this.errors.some((err, i) => {
-        if (err.Error_Summary === error.Error_Summary) {
-          this.errors[i].Remediation = (this.errors[i].Remediation as Array<string>).concat(error.Remediation);
-          return true;
-        }
-        return false;
-      });
-      if (!found) {
-        this.errors.push(error);
-      }
-    });
+    // errors.forEach(error => {
+    //   error.Remediation = [error.Remediation as string];
+    //   const found = this.errors.some((err, i) => {
+    //     if (err.Error_Summary === error.Error_Summary) {
+    //       this.errors[i].Remediation = (this.errors[i].Remediation as Array<string>).concat(error.Remediation);
+    //       return true;
+    //     }
+    //     return false;
+    //   });
+    //   if (!found) {
+    //     this.errors.push(error);
+    //   }
+    // });
+    this.errors = errors;
+    console.log(errors);
   }
 
   /**
@@ -108,11 +115,11 @@ export class LogAnalyticsComponent implements OnInit {
      if(this.isCheckBoxChecked == true)
      {
         alert("Successfully Deployed!!");
-     } 
+     }
      else{
        alert("Select alteast one checkbox!!");
-     } 
-  }  
+     }
+  }
 }
 
 
