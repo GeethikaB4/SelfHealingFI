@@ -25,3 +25,36 @@
 .summary .row>div{
   overflow-wrap:break-word;
 }
+
+#back {
+  padding-left: var(--side-bar-width);
+  position: fixed;
+  background: rgb(230,230,230);
+  height: 100%;
+  padding-right: 0px;
+  width: 100vw;
+}
+#back>.row>div{
+  height: calc(100vh - var(--nav-bar-height));
+  padding: 10px;
+  overflow-y: scroll;
+}
+#back>.row>div>div{
+  min-height: 1px;
+  background: white;
+  box-shadow: rgba(0,0,0,0.3) 0px 0px 5px;
+  padding:25px
+}
+
+.table thead tr{
+  font-size:  13px ;
+}
+.table tbody{
+  font-size:  13px ;
+}
+.table td,.table th{
+  padding: 0.35rem;
+}
+i.fas:hover{
+  cursor: pointer;
+}

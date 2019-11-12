@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { History } from '../interfaces/history';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,4 +19,7 @@ export class SharedService {
   uniqueErrorCount: string;
   uniqueWarningCount: string;
   inputFileName: string;
+  showOption: string;
+
+  history: Array<History>;
 }

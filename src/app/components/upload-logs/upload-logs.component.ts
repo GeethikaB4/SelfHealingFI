@@ -64,6 +64,24 @@ export class UploadFileComponent {
       this.shared.uniqueErrorCount = data.unique_error_count;
       this.shared.uniqueWarningCount = data.unique_warning_count;
       if (data.status) {
+        const historyElement = {
+          stack: this.shared.techStack,
+          file: data.output_csv_name.substring(data.output_csv_name.lastIndexOf('\\')+1, data.output_csv_name.length),
+          time: new Date()
+        };
+        if (!this.shared.history) {
+          this.shared.history = [];
+        }
+        console.log(JSON.parse(sessionStorage.getItem('history')), 'parsee');
+        this.shared.history.push(historyElement);
+        if (sessionStorage.getItem('history')) {
+          const toStore = JSON.parse(sessionStorage.getItem('history'));
+          toStore.push(historyElement);
+          sessionStorage.setItem('history', JSON.stringify(toStore));
+        } else {
+          sessionStorage.setItem('history', JSON.stringify([]));
+        }
+
         this.shared.outputFile = data.output.split('\\').pop();
         this.router.navigate(['/logAnalyticsAndResolution']);
       } else {

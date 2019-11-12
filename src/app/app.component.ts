@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'SelfHealingFI';
   constructor(private shared: SharedService, private router: Router) {
-    if(shared.techStack == '' || shared.techStack == undefined) {
+    if (shared.techStack == '' || shared.techStack == undefined) {
       router.navigate(['']);
     }
   }
