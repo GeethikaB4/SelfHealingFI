@@ -1,51 +1,35 @@
-#imgContainer {
+#heading {
+  text-align: left;
+  float:left;
+  margin: 5%;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: large;
+  color:aliceblue;
+}
+
+#subHeading{
   padding-top: 20px;
-  padding-bottom: 20px;
   margin-top: 40px;
+  text-align: left;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: large;
+  color:aliceblue;
 }
 
-#imageGrid {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top:10px;
-  margin-bottom: 10px;
-}
-#imageGrid > div {
-  padding: 20px;
-}
-
-#imageGrid * {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-#imageGrid p {
-  color: black;
-  margin: 0px;
-  font-weight: bold;
-}
-
-#arrow-1, #arrow-2 {
-  height: 50px!important;
+#userLogo{
+  margin: 2%;
+  text-align: justify;
+  float: left;
 }
 #admin {
-  height: 100px;
-}
-#error_warning {
-  height: 125px;
-}
-#logs {
-  /* filter: invert(); */
-  height: 75px;
+  background: transparent;
+  height: 350px;
 }
 
-#techStack * {
-  margin-left: 0px;
-  margin-right: 0px;
-}
 #techStack {
+  text-align: left;
+  margin:5%;
+  float: left;
   padding: 15px;
 }
 #techStack select {
@@ -71,3 +55,74 @@
 #techStack select:focus {
   outline: none;
 }
+#techStack * {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

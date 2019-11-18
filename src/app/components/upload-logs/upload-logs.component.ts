@@ -44,71 +44,39 @@ export class UploadFileComponent {
   }
 
   async uploadFiles() {
-    const response: any = await this.fileService.uploadLogs(this.shared.techStack, this.filesToUpload, this.shared.baseURI);
-    if (response === true) {
-      this.proceed = true;
+   this.fileService.uploadLogs(this.shared.techStack, this.filesToUpload, this.shared.baseURI).
+   then((data: MLResponse) => {
+    this.shared.analysisSuccess = data.status;
+    this.shared.timeOfExec = data.time_exec;
+    this.shared.logFileName = data.log_file_name;
+    this.shared.output_csv_name = data.output_csv_name;
+    this.shared.errorCount = data.error_count;
+    this.shared.warningCount = data.warning_count;
+    this.shared.uniqueErrorCount = data.unique_error_count;
+    this.shared.uniqueWarningCount = data.unique_warning_count;
+    if (data.status) {
+      this.shared.outputFile = data.output.split('\\').pop();
+      this.router.navigate(['/logAnalyticsAndResolution']);
     } else {
-      alert('error');
-    }
-  }
-
-  analyze() {
-    console.log(this.shared.filePaths);
-    this.http.runML(this.shared.filePaths).then((data: MLResponse) => {
-      this.shared.analysisSuccess = data.status;
-      this.shared.timeOfExec = data.time_exec;
-      this.shared.logFileName = data.log_file_name;
-      this.shared.output_csv_name = data.output_csv_name;
-      this.shared.errorCount = data.error_count;
-      this.shared.warningCount = data.warning_count;
-      this.shared.uniqueErrorCount = data.unique_error_count;
-      this.shared.uniqueWarningCount = data.unique_warning_count;
-      if (data.status) {
-        const historyElement = {
-          stack: this.shared.techStack,
-          file: data.output_csv_name.substring(data.output_csv_name.lastIndexOf('\\')+1, data.output_csv_name.length),
-          time: new Date()
-        };
-        if (!this.shared.history) {
-          this.shared.history = [];
-        }
-        console.log(JSON.parse(sessionStorage.getItem('history')), 'parsee');
-        this.shared.history.push(historyElement);
-        if (sessionStorage.getItem('history')) {
-          const toStore = JSON.parse(sessionStorage.getItem('history'));
-          toStore.push(historyElement);
-          sessionStorage.setItem('history', JSON.stringify(toStore));
+      Swal.fire({
+        title: 'Error occured',
+        text: 'The file you have uploaded cannot be analysed as it is not a log file. Do you want to upload another file?',
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.value) {
+          this.router.navigate(['/uploadLogs']);
+          this.proceed = false;
+          this.files = [];
         } else {
-          sessionStorage.setItem('history', JSON.stringify([]));
+          this.router.navigate(['/']);
         }
-
-        this.shared.outputFile = data.output.split('\\').pop();
-        this.router.navigate(['/logAnalyticsAndResolution']);
-      } else {
-        Swal.fire({
-          title: 'Error occured',
-          text: 'The file you have uploaded is cannot be analysed. Do you want to upload another file?',
-          icon: 'error',
-          showCancelButton: true,
-          confirmButtonText: 'Yes',
-          cancelButtonText: 'No'
-        }).then((result) => {
-          if (result.value) {
-            this.router.navigate(['/uploadLogs']);
-            this.proceed = false;
-            this.files = [];
-          } else {
-            this.router.navigate(['/']);
-          }
-        });
-      }
-    });
-  }
-
-  post() {
-    this.config.postResponse().subscribe((data) =>
-      console.log(data));
-  }
-
+      });
+    }
+  });
 }
+}
+
 

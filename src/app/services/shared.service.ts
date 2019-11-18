@@ -4,8 +4,7 @@ import { History } from '../interfaces/history';
   providedIn: 'root'
 })
 export class SharedService {
-  baseURI = 'http://localhost:3000';
-  MLServer = 'http://localhost:3001';
+  baseURI = 'http://localhost:3003';
   techStack: string;
   filesUploaded: Array<string>;
   filePaths: Array<{[key: string]: string}>;

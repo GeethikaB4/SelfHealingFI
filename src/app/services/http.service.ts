@@ -14,8 +14,4 @@ export class HttpService {
   getAnalyticsandResolution(techStack: string, fileName: string, baseURI: string) {
     return this.http.get(`${baseURI}/json/${techStack}/${fileName}`).toPromise();
   }
-
-  runML(fileName: Array<{[key: string]: string}>) {
-    return this.http.post(`${this.shared.MLServer}`, fileName).toPromise();
-  }
 }

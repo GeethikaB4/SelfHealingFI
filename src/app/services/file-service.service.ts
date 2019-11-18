@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from './shared.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,11 @@ import { SharedService } from './shared.service';
 export class FileService {
 
 
-  constructor(private http: HttpClient, private shared: SharedService) {
+  constructor(private http: HttpClient, private shared: SharedService,private router: Router) {
 
   }
 
+  message = null;
   downloadFileFromUrl(url: string, fileName: string) {
     saveAs(url, fileName);
   }
@@ -24,9 +27,23 @@ export class FileService {
       formData.append('logs', files[i], files[i][name]);
     }
     return this.http.post(`${baseURI}/upload/${techStack}`, formData).toPromise().then((data: any) => {
-      this.shared.filePaths = data.fileLocation;
-      console.log(data);
-      return true;
+      this.message = data.message;
+      console.log(data.message);
+      console.log(data.MLResponse);
+      if (this.message) {
+        return data.MLResponse;
+      }else {
+        Swal.fire({
+          title: 'Error occured',
+          text: 'Error occurred while trying to upload the file to server. Please make sure all servers are up.',
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+            this.router.navigate(['/']);
+        });
+      }
     }).catch((err: HttpErrorResponse) => {
       console.log(err);
       return err.message;

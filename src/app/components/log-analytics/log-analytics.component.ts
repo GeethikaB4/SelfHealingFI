@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { FileService } from 'src/app/services/file-service.service';
 import { HttpService } from 'src/app/services/http.service';
 import { Errors } from 'src/app/interfaces/errors';
@@ -7,7 +7,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from 'src/app/services/config.service';
 import { History } from '../../interfaces/history';
-import { from } from 'rxjs';
+import { from, Subject } from 'rxjs';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-log-analytics',
   templateUrl: './log-analytics.component.html',
@@ -34,8 +37,14 @@ export class LogAnalyticsComponent implements OnInit {
   outputCSVFile: string;
   history: Array<History>;
   selected: [];
+  selectedAll: any;
+
+  @Input() readonly placeholder: string = '';
+  @Output() setValue: EventEmitter<string> = new EventEmitter();
+  private searchSubject: Subject<string> = new Subject();
+
   constructor(private fileService: FileService, private http: HttpService, private shared: SharedService,
-              private httpClient: HttpClient, private configService: ConfigService) {
+              private httpClient: HttpClient, private configService: ConfigService, private router: Router) {
 
     this.isCheckBoxChecked = false;
     this.show = 'summary';
@@ -116,21 +125,51 @@ export class LogAnalyticsComponent implements OnInit {
     this.fileService.downloadCSV(techStack, filename, filename, this.shared.baseURI);
   }
 
-//  chkval(event) {
-//   this.isCheckBoxChecked = false;
-//   if ( event.target.checked ) {
-//     this.isCheckBoxChecked = true;
-//   }
-// }
-
-//   status() {
-//      if ( this.isCheckBoxChecked === true) {
-//         alert('Successfully Deployed!!');
-//      } else {
-//        alert('Select alteast one checkbox!!');
-//      }
-//   }
+checked(event){
+  this.isCheckBoxChecked = false;
+  if ( event.target.checked ){
+    this.isCheckBoxChecked = true;
+  }
 }
+
+  status(){
+     if(this.isCheckBoxChecked == true){
+      Swal.fire({
+        title: "Confirm remediation",
+        text: 'Do you want to apply the selected remediation for the error?',
+        icon : 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if(result.value){
+        Swal.fire({
+        title: 'The remediation is applied successfully',
+        text: 'The remediation is applied succesfully. Do you want to apply another remediation?',
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+        }).then((result1) => {
+          if (!result1.value) {
+          this.router.navigate(['/']);
+        }
+      });
+        }
+    });
+  }else {
+      Swal.fire({
+        title: 'Select atleast one checkbox',
+        text: 'Atleast one checkbox has to be selected to apply remediations.',
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonText: 'OK',
+      });
+     }
+
+}
+  }
+
 
 
 

@@ -1,12 +1,11 @@
 .uploadfilecontainer {
-  background-image: url("../../../assets/cloud-2044823_960_720.png");
+  background-image: url("../../../assets/Upload-PNG.png");
   background-repeat: no-repeat;
-  background-size: 50px;
+  background-size: 100px;
   background-position: center;
   height: 200px;
-  width: 25%;
+  width: 50%;
   margin: 20px auto;
-  border: 2px dashed #1C8ADB;
   border-radius: 10px;
   float : center;
 }
@@ -20,10 +19,9 @@
 .files-list {
   display: flex;
   justify-content: space-between;
-  width: 25%;
+  width: 50%;
   margin: 10px auto;
   background: #ffffff;
-  border: 1px dashed;
   border-radius: 12px;
   padding: 5px;
   color: #1c8adb;
