@@ -5,7 +5,6 @@ import { Errors } from 'src/app/interfaces/errors';
 import { SharedService } from 'src/app/services/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
-import { ConfigService } from 'src/app/services/config.service';
 import { History } from '../../interfaces/history';
 import { from, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -44,7 +43,7 @@ export class LogAnalyticsComponent implements OnInit {
   private searchSubject: Subject<string> = new Subject();
 
   constructor(private fileService: FileService, private http: HttpService, private shared: SharedService,
-              private httpClient: HttpClient, private configService: ConfigService, private router: Router) {
+              private httpClient: HttpClient, private router: Router) {
 
     this.isCheckBoxChecked = false;
     this.show = 'summary';
@@ -96,7 +95,7 @@ export class LogAnalyticsComponent implements OnInit {
    * @param fileName OutputCSV filename from ML code
    */
   fetchAnalytics(fileName: string) {
-    this.http.getAnalyticsandResolution(this.shared.techStack, fileName, this.shared.baseURI).then((data) => {
+    this.http.getAnalyticsandResolution(this.shared.techStack, fileName).then((data) => {
       this.processAnalytics(data as Errors[]);
     }).catch((err: HttpErrorResponse) => {
       console.log(err);
@@ -119,10 +118,10 @@ export class LogAnalyticsComponent implements OnInit {
     console.log(this.downloadFileName);
     const filename = this.downloadFileName.trim().length === 0 ? 'output.csv' : `${this.downloadFileName}.csv`;
     const outputFile  = this.shared.outputFile;
-    this.fileService.downloadCSV(this.shared.techStack, outputFile, filename, this.shared.baseURI);
+    this.fileService.downloadCSV(this.shared.techStack, outputFile, filename);
   }
   downloadLogFromHistory(techStack, filename) {
-    this.fileService.downloadCSV(techStack, filename, filename, this.shared.baseURI);
+    this.fileService.downloadCSV(techStack, filename, filename);
   }
 
 checked(event){

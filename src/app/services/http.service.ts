@@ -8,10 +8,14 @@ import { SharedService } from './shared.service';
 
 
 export class HttpService {
+  baseURI;
 
-  constructor(private http: HttpClient, private shared: SharedService) { }
+  constructor(private http: HttpClient, private shared: SharedService) {
+    this.baseURI = shared.baseURI;
+  }
 
-  getAnalyticsandResolution(techStack: string, fileName: string, baseURI: string) {
+  getAnalyticsandResolution(techStack: string, fileName: string) {
+    const baseURI = this.baseURI;
     return this.http.get(`${baseURI}/json/${techStack}/${fileName}`).toPromise();
   }
 }

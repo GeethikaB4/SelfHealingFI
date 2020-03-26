@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from 'src/app/services/file-service.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { ConfigService } from 'src/app/services/config.service';
 import { HttpService } from 'src/app/services/http.service';
 import { MLResponse } from 'src/app/interfaces/ml-response';
 import { Router } from '@angular/router';
@@ -21,7 +20,7 @@ export class UploadFileComponent {
   readyForUpload: boolean;
   status = null;
 
-  constructor(private router: Router,private http: HttpService, private fileService: FileService, private shared: SharedService, private config: ConfigService) {
+  constructor(private router: Router,private http: HttpService, private fileService: FileService, private shared: SharedService) {
     this.proceed = false;
     this.readyForUpload = false;
   }
@@ -44,7 +43,7 @@ export class UploadFileComponent {
   }
 
   async uploadFiles() {
-   this.fileService.uploadLogs(this.shared.techStack, this.filesToUpload, this.shared.baseURI).
+   this.fileService.uploadLogs(this.shared.techStack, this.filesToUpload).
    then((data: MLResponse) => {
     this.shared.analysisSuccess = data.status;
     this.shared.timeOfExec = data.time_exec;

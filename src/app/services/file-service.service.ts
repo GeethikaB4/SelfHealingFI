@@ -10,9 +10,11 @@ import Swal from 'sweetalert2';
 })
 export class FileService {
 
+  baseURI;
 
-  constructor(private http: HttpClient, private shared: SharedService,private router: Router) {
-
+  constructor(private http: HttpClient, private shared: SharedService, private router: Router) {
+    this.baseURI = shared.baseURI;
+    // shared.baseURI
   }
 
   message = null;
@@ -20,7 +22,8 @@ export class FileService {
     saveAs(url, fileName);
   }
 
-  uploadLogs(techStack: string, files: Array<File>, baseURI: string) {
+  uploadLogs(techStack: string, files: Array<File>) {
+    const baseURI = this.baseURI;
     const formData = new FormData();
     // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < files.length; i++) {
@@ -51,7 +54,8 @@ export class FileService {
   }
 
 
-  downloadCSV(techStack: string, targetFileName: string, saveFileName: string, baseURI: string) {
+  downloadCSV(techStack: string, targetFileName: string, saveFileName: string) {
+    const baseURI = this.baseURI;
     return this.http.get(`${baseURI}/file/${techStack}/${targetFileName}`, {
       responseType: 'arraybuffer'
     }).toPromise().then(

@@ -12,7 +12,6 @@ import { HomeComponent } from './components/home/home.component';
 import { FileService } from './services/file-service.service';
 import { SharedService } from './services/shared.service';
 import { HttpService } from './services/http.service';
-import { ConfigService } from './services/config.service';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 
@@ -37,8 +36,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
   providers: [
     FileService,
     SharedService,
-    HttpService,
-    ConfigService
+    HttpService
   ],
   bootstrap: [AppComponent]
 })
